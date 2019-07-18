@@ -1,18 +1,24 @@
-mkidr pass
 mkdir pass_merge
-
 unzip pass.zip
 for m in $(ls *.gz); do gunzip $m ; done
 cat *.fastq > ../pass_merge/all.fastq
+
+### reads quality statistics
 NanoPlot -t 40 --fastq  all.fastq --plots hex dot
 
 ## fastq convert fasta
-sed -n '1~4s/^@/>/p;2~4p' fastq_runid_d9cccf88836673dacb0304fed8096fd4eca4f0fb_0.fastq > test.fasta
+sed -n '1~4s/^@/>/p;2~4p' all.fastq > all.fasta
 
+## perform tandem repeat finder to seach TRs in reads
+~/soft/trf409.linux64 all.fasta 2 7 7 80 10 50 2000 -l 6 -h > out.txt
+# match score: 2
+# mismatch score: 7
+# indel score: 7
+# acth probality: 80 
+# min alignemt score to report: 50
+# max period: 2000
+# -l longest repeat size(million) 
 
-
-./trf409.linux64  /home/wuzefeng/MyResearch/genome.db/TAIR/dna/Arabidopsis_thaliana.TAIR10.31.dna.toplevel.fa 2 7 7 80 10 100 2000 -d -h
-
-./trf409.linux64 fasta文件名 match得分 错配得分 indel罚分 PM PI 最小比对得分 tandem覆盖的序列长度 -d -h(阻止html)
-
+### format convert
+python test.py in.dat out.txt
 
