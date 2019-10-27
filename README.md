@@ -30,19 +30,19 @@
 ## Method 2: TideHunter
     TideHunter all.fastq -t 40  -o 4TideHunter_result/cons.fa
 
-### inimap2
+### Minimap2
     minimap2 -ax map-ont ../reference_genome/Drosophila_melanogaster.BDGP6.22.dna.toplevel.fa  4TideHunter_result/cons.fa -t 30 --sam-hit-only --secondary=no -o 5minimap2_result/minimap2.sam
 
-### am to bam
+### Sam to bam
     samtools view -S -b minimap2.sam > minimap2.bam
 
-### btain aligned reads
+### Obtain aligned reads
     samtools view -bF 4 minimap2.bam > 3minimap2_aligned.bam
 
-### ort sam
+### Sort sam
     java -jar ~/soft/picard.jar  SortSam I= 3minimap2_aligned.bam O= 4minimap2_aligned_sorted.bam SORT_ORDER=coordinate
 
-### oad into R 
+### Load into R 
     library(genomicFeatures)
     library(bamsignals)
 
