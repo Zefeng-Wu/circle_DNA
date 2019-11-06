@@ -1,0 +1,5 @@
+library(ShortRead)
+reads <- readFastq("/home/wuzefeng/opt/zz/191024_filter.fastq")
+hist(width(reads))
+sum(width(reads)>50000)/length(reads)
+writeFastq(reads[width(reads)<=50000],file = "/home/wuzefeng/opt/zz/191024_filter.fastq")
