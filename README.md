@@ -8,6 +8,7 @@
 
 ## 1.0 reads quality statistics
     NanoPlot -t 40 --fastq  all.fastq --plots hex dot
+    filtlong --min_length 1000 --min_mean_q 9 SRR6924617.fastq >SRR6924617_filt_long_filter.fastq
 
 ## 1.1 fastq convert to fasta
     sed -n '1~4s/^@/>/p;2~4p' all.fastq > all.fasta
