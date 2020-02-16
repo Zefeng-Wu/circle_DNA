@@ -1,4 +1,4 @@
-# This pipeline is used to identify potential circle DNA from nanopore sequencing technology 
+## This pipeline is used to identify potential circle DNA from nanopore sequencing technology 
 
 ### Data preparation
     mkdir pass_merge
@@ -40,8 +40,9 @@
 
 ### 1.6 Sort sam
     java -jar ~/soft/picard.jar  SortSam I= 3minimap2_aligned.bam O= 4minimap2_aligned_sorted.bam SORT_ORDER=coordinate
+    samtools sort -@ 3 3minimap2.bam > 4minimap2.sorted.bam #(optional)
 
-### 1.7 Load into R 
+#### 1.7.1 Genomic coverage summary by R
     library(genomicFeatures)
     library(bamsignals)
 
@@ -51,4 +52,6 @@
     covSigs <- bamCount("4minimap2_aligned_sorted.bam", genes)
     genes$reads_count <-covSigs
     write.table(as.data.frame(genes),"out",sep="\t",col.names=TRUE,row.names=TRUE,quot=FALSE)
+#### 1.7.2 Make bedgraph file
+    bamCoverage  -b 4minimap2.sorted.bam --outFileFormat bedgraph -o 5minimap2.bedgraph -p 3 --binSize 10000
 
