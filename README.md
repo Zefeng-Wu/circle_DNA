@@ -13,7 +13,7 @@
 ### 1.1 fastq convert to fasta
     sed -n '1~4s/^@/>/p;2~4p' all.fastq > all.fasta
 
-~~### 1.2 Tandem repeats detection and consensus calling using TRF (tandem repeat finder)～～
+~~### 1.2 Tandem repeats detection and consensus calling using TRF (tandem repeat finder)
     ~/soft/trf409.linux64 all.fasta 2 7 7 80 10 50 2000 -l 6 -h > out.txt
     # match score: 2
     # mismatch score: 7
