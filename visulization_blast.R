@@ -26,3 +26,6 @@ ggplot()+geom_alignment(xx[1:100],type="id")
 autoplot(grl, aes(type = id))
 #008da576-7b24-4000-8f90-ae702802d2d4_cons0_3343_95_2947_958_3.1_0 # an interesting case
 
+
+## another visuliaztion
+autoplot(temp_ga, colour=as.factor(strand(temp_ga)))
